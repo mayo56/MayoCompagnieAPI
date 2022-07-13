@@ -6,7 +6,7 @@ import DataTransferC from "../Controller/DataTransferController";
 
 const storageVideo = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'MayoStream/Videos');
+        cb(null, __dirname + "/../Videos");
     },
     filename: function (req, file, cb) {
         const name = Date.now().toString() + `.${file.mimetype.slice(6)}`;
