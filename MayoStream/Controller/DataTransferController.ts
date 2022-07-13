@@ -11,7 +11,7 @@ const DataTransferC = {
                 'x-sent': true
             }
         };
-        res.sendFile(req.params.id, OptionGetVideo, (err) => {
+        res.sendFile(("video-" + req.params.id), OptionGetVideo, (err) => {
             if (err) {
                 next(err);
             };
