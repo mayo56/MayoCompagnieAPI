@@ -11,7 +11,7 @@ import MayoStream from "./MayoStream/MayoStream";
 //Constitution de app
 const app = express();
 app.use(express.json());
-app.use(cors({"origin": "*"}));
+app.use(cors({"origin": ["*.mayocompagnie.fr", "localhost:3000"]}));
 
 
 app.get("/", (req, res) => {
