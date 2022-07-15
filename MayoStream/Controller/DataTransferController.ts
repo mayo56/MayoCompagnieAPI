@@ -15,8 +15,8 @@ const DataTransferC = {
         res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => {if (err) next(err);});
     },
     getInfoVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        const data = requestDB(`SELECT * FROM video WHERE id=${req.params.id}`);
-        if (data) {return res.status(201).send(data)}
+        const data = (await requestDB(`SELECT * FROM videos WHERE id='${req.params.id}'`)).rows;
+        if (data.length > 0) {return res.status(201).send({data:data[0]})}
         else {return res.status(401).send({error : "video not found"})}
     },
     postVideo: async (req: express.Request, res: express.Response) => {

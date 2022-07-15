@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-require("dotenv");
+require("dotenv").config({ path: "./config/.env" });
 
 /**
  * Import des différents modules de l'api
@@ -17,7 +17,7 @@ import { Client } from "pg";
 const credentials = {
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
-    database: 'MayoCompagnie',
+    database: 'postgres',
     password: process.env.DB_PASSWORD,
     port: 5432
 };
