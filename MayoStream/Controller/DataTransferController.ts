@@ -1,5 +1,6 @@
 import express from "express";
 import path from "node:path";
+import requestDB from "../../serveur";
 
 const DataTransferC = {
     getVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -11,16 +12,10 @@ const DataTransferC = {
                 'x-sent': true
             }
         };
-        res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => {
-            if (err) {
-                next(err);
-            }
-        })
+        res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => {if (err) next(err);});
     },
     getInfoVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        const data = {
-            //some data here (as reponse from db)
-        };
+        const data = requestDB(`SELECT * FROM video WHERE id=${req.params.id}`);
         if (data) {return res.status(201).send(data)}
         else {return res.status(401).send({error : "video not found"})}
     },

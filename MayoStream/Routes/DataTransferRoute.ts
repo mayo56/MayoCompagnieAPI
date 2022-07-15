@@ -16,6 +16,7 @@ const storageVideo = multer.diskStorage({
 const videoStock = multer({ storage: storageVideo });
 
 DataTransferR.get("/:id", DataTransferC.getVideo);
+DataTransferR.get("/info/:id", DataTransferC.getInfoVideo)
 DataTransferR.post("/post", videoStock.single("file"), DataTransferC.postVideo);
 
 export default DataTransferR;
