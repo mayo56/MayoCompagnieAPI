@@ -11,14 +11,15 @@ const DataTransferC = {
                 'x-sent': true
             }
         };
-        res.sendFile(("video-" + req.params.id), OptionGetVideo, (err) => {
+        res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => {
             if (err) {
                 next(err);
             };
         });
     },
     postVideo: async (req: express.Request, res: express.Response) => {
-        res.status(201).send("Ok !")
+        if (!req.file) return res.status(401).send({error: "Pas de vidéo envoyé."})
+        else return res.status(201).send("Ok !");
     },
 
 }
