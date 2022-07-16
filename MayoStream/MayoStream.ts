@@ -8,6 +8,6 @@ const MayoStream = express();
 
 
 //Chemins requêtes
-MayoStream.use("/video", DataTransferR);
+MayoStream.use(DataTransferR);
 
 export default MayoStream;
