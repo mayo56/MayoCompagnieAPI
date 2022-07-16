@@ -23,7 +23,6 @@ const DataTransferC = {
         if (!req.file) {return res.status(401).send({ error: "Don't have video" })}
         else {return res.status(201).send("Ok !");}
     },
-
 }
 
 export default DataTransferC;

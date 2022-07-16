@@ -33,7 +33,10 @@ export default async function requestDB(req: string) {
 //Constitution de app
 const app = express();
 app.use(express.json());
-app.use(cors({"origin": ["*.mayocompagnie.fr", "localhost:3000"]}));
+app.use(cors({
+    "origin": ["*.mayocompagnie.fr", "localhost:3000"],
+    "methods":"GET, POST"
+}));
 
 
 app.get("/", (req, res) => {
