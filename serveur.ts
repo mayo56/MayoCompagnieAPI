@@ -34,8 +34,7 @@ export default async function requestDB(req: string) {
 const app = express();
 app.use(express.json());
 app.use(cors({
-    "origin": ["*.mayocompagnie.fr", "localhost:3000"],
-    "methods":["GET", "POST"]
+    "origin":"*"
 }));
 
 
