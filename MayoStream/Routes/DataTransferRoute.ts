@@ -4,13 +4,16 @@ const DataTransferR = express();
 
 import DataTransferC from "../Controller/DataTransferController";
 
+export let idVideo = ""
+export let extentionVideo = ""
 const storageVideo = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, __dirname + "/../Videos");
     },
     filename: function (req, file, cb) {
-        const name = Date.now().toString() + `.${file.mimetype.slice(6)}`;
-        cb(null, "video" + '-' + name);
+        idVideo = Date.now().toString() ;
+        extentionVideo = `${file.mimetype.slice(6)}`
+        cb(null, "video" + '-' + idVideo + `.${file.mimetype.slice(6)}`);
     }
 });
 const videoStock = multer({ storage: storageVideo });

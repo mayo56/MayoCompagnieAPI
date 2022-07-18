@@ -1,6 +1,8 @@
 import express from "express";
 import path from "node:path";
 import requestDB from "../../serveur";
+import { extentionVideo, idVideo } from "../Routes/DataTransferRoute";
+import fs from "node:fs"
 
 const DataTransferC = {
     getVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -29,6 +31,15 @@ const DataTransferC = {
     },
     postVideo: async (req: express.Request, res: express.Response) => {
         if (!req.file) {return res.status(401).send({ error: "Don't have video" })}
+        console.log("hey")
+        if (!req.body.data) {
+            res.status(401).send({error:"no data detected"});
+            fs.unlink("MayoStream/Videos/" + `video-${idVideo}.${extentionVideo}`, (err) => {
+                if (err) console.log(err);
+            });
+            return;
+        };
+        if (req.body) await requestDB(`insert into videos values ('${idVideo}', '${req.body.data.name}', '${extentionVideo}')`);
         else {return res.status(200).send("Ok !");}
     },
 }
