@@ -22,7 +22,7 @@ const DataTransferC = {
         else {return res.status(404).send({error : "video not found"})};
     },
     getNameVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-        const data = (await requestDB(`SELECT * FROM videos WHERE name like '%${req.params.name}%'`)).rows;
+        const data = (await requestDB(`SELECT id, name, extention FROM videos WHERE upper(name) like '%${req.params.name.toUpperCase()}%';`)).rows;
         if (data.length > 0) {
             return res.status(200).send({videos:data});
         } else {
