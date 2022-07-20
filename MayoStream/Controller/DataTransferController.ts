@@ -31,7 +31,6 @@ const DataTransferC = {
     },
     postVideo: async (req: express.Request, res: express.Response) => {
         if (!req.file) {return res.status(401).send({ error: "Don't have video" })}
-        console.log("hey")
         if (!req.body.data) {
             res.status(401).send({error:"no data detected"});
             fs.unlink("MayoStream/Videos/" + `video-${idVideo}.${extentionVideo}`, (err) => {
