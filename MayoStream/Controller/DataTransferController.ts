@@ -14,32 +14,33 @@ const DataTransferC = {
                 'x-sent': true
             }
         };
-        res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => {if (err) next(err);});
+        res.sendFile((`video-${req.params.id}`), OptionGetVideo, (err) => { if (err) next(err); });
     },
     getInfoVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const data = (await requestDB(`SELECT * FROM videos WHERE id='${req.params.id}'`)).rows;
-        if (data.length > 0) {return res.status(200).send({data:data[0]})}
-        else {return res.status(404).send({error : "video not found"})};
+        if (data.length > 0) { return res.status(200).send({ data: data[0] }) }
+        else { return res.status(404).send({ error: "video not found" }) };
     },
     getNameVideo: async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const data = (await requestDB(`SELECT id, name, extention FROM videos WHERE upper(name) like '%${req.params.name.toUpperCase()}%';`)).rows;
         if (data.length > 0) {
-            return res.status(200).send({videos:data});
+            return res.status(200).send({ videos: data });
         } else {
-            return res.status(200).send({noVideo:"Aucune vidéo trouvé."})
+            return res.status(200).send({ noVideo: "Aucune vidéo trouvé." })
         }
     },
     postVideo: async (req: express.Request, res: express.Response) => {
-        if (!req.file) {return res.status(401).send({ error: "Don't have video" })}
-        if (!req.body.data) {
-            res.status(401).send({error:"no data detected"});
+        if (!req.file) { return res.status(401).send({ error: "Don't have video" }) }
+        if (!req.body.name) {
+            res.status(401).send({ error: "no data detected" });
             fs.unlink("MayoStream/Videos/" + `video-${idVideo}.${extentionVideo}`, (err) => {
                 if (err) console.log(err);
             });
             return;
+        } else {
+            await requestDB(`insert into videos values ('${idVideo}', '${req.body.name}', '${extentionVideo}')`);
+            return res.status(200).send("Ok !")
         };
-        if (req.body) await requestDB(`insert into videos values ('${idVideo}', '${req.body.data.name}', '${extentionVideo}')`);
-        else {return res.status(200).send("Ok !");}
     },
 }
 
