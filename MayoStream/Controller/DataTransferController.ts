@@ -42,6 +42,19 @@ const DataTransferC = {
             return res.status(200).send("Ok !")
         };
     },
+    //Video random
+    getVideoRandom: async (req: express.Request, res: express.Response) => {
+        const videos = (await requestDB(`select * from videos order by random();`)).rows;
+        res.status(200).send({videos})
+    },
+    //video random (sans celles déjà affichés)
+    getAnotherVideoRandom: async (req: express.Request, res: express.Response) => {
+        const ids:string[] = req.body.videosIDs;
+        if(!ids) return res.status(401).send({error: "No ids detected for send anothers videos"});
+        const idsForReq = ids.map(e => `'${e}'`)
+        const videos = (await requestDB(`select * from videos where id not in (${idsForReq.join(", ")}) order by random() limit 1`)).rows;
+        res.status(200).send(videos);
+    }
 }
 
 export default DataTransferC;
