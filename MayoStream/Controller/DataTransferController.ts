@@ -48,6 +48,13 @@ const DataTransferC = {
         res.status(200).send({videos})
     },
     //video random (sans celles déjà affichés)
+    /**
+     * 
+     * @param req 
+     * @param res 
+     * @returns 
+     * @beta
+     */
     getAnotherVideoRandom: async (req: express.Request, res: express.Response) => {
         const ids:string[] = req.body.videosIDs;
         if(!ids) return res.status(401).send({error: "No ids detected for send anothers videos"});
