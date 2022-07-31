@@ -51,9 +51,7 @@ const DataTransferC = {
     /**
      * 
      * @param req 
-     * @param res 
-     * @returns 
-     * @beta
+     * @param res
      */
     getAnotherVideoRandom: async (req: express.Request, res: express.Response) => {
         const ids:string[] = req.body.videosIDs;
