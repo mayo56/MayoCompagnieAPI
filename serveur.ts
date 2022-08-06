@@ -33,8 +33,9 @@ export default async function requestDB(req: string) {
 //Constitution de app
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({limit:"50mb", extended:true}))
 app.use(cors({
-    "origin":"*"
+    "origin":"*",
 }));
 
 
